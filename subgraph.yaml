@@ -1,0 +1,100 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+features:
+  - fullTextSearch
+dataSources:
+  - kind: ethereum
+    name: ZKFRegistrarController
+    network: goerli
+    source:
+      abi: ZKFRegistrarController
+      address: "0xC805e17Dc9D3845374ed5E126180138CA250a581"
+      startBlock: 10300000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/zkfRegistrar.ts
+      entities:
+        - Domain
+        - DomainEvent
+      abis:
+        - name: ZKFRegistrarController
+          file: ./abis/ZKFRegistrarController.json
+      eventHandlers:
+        - event: NameRegistered(string,indexed bytes32,indexed
+            address,uint256,uint256,uint256)
+          handler: handleNameRegisteredByController
+        - event: NameRenewed(string,indexed bytes32,uint256,uint256)
+          handler: handleNameRenewedByController
+  - kind: ethereum
+    name: BaseRegistrarImplementation
+    network: goerli
+    source:
+      abi: BaseRegistrarImplementation
+      address: "0x30f96074fE89400B602Cf4927D412E96ae684848"
+      startBlock: 10300000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/zkfRegistrar.ts
+      entities:
+        - Domain
+        - DomainEvent
+      abis:
+        - name: BaseRegistrarImplementation
+          file: ./abis/BaseRegistrarImplementation.json
+      eventHandlers:
+        - event: NameRegistered(indexed uint256,indexed address,uint256)
+          handler: handleNameRegisteredByRegistrar
+        - event: NameRenewed(indexed uint256,uint256)
+          handler: handleNameRenewedByRegistrar
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleNameTransferredByRegistrar
+  - kind: ethereum
+    name: ENSRegistryWithFallback
+    network: goerli
+    source:
+      abi: ENSRegistryWithFallback
+      address: "0x9b34EB010a86c513cF3486254dD6473a6DaE1193"
+      startBlock: 10300000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/zkfRegistrar.ts
+      entities:
+        - Domain
+        - DomainEvent
+      abis:
+        - name: ENSRegistryWithFallback
+          file: ./abis/ENSRegistryWithFallback.json
+      eventHandlers:
+        - event: Transfer(indexed bytes32,address)
+          handler: handleTransferByRegistry
+        - event: NewOwner(indexed bytes32,indexed bytes32,address)
+          handler: handleNewOwnerByRegistry
+  - kind: ethereum
+    name: ReverseRegistrar
+    network: goerli
+    source:
+      abi: ReverseRegistrar
+      address: "0x441cA4f2948EEfABF32213A8d960dbeA6B084AbA"
+      startBlock: 10300000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/zkfRegistrar.ts
+      entities:
+        - Account
+      abis:
+        - name: ReverseRegistrar
+          file: ./abis/ReverseRegistrar.json
+      callHandlers:
+        - function: setName(string)
+          handler: handleSetName
+        - function: setNameForAddr(address,address,address,string)
+          handler: handleSetNameForAddr

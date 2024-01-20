@@ -1,0 +1,33 @@
+{
+  "name": "ens-subgraph",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    
+    "build-goerli": "graph build --network goerli",
+    "codegen-goerli": "graph codegen --network goerli",
+    "test": "graph test --network goerli",
+    "deploy-goerli": "yarn auth && graph deploy --product hosted-service zkfairdomains/zkf-subgraph-goerli --network goerli",
+    "setup-studio-goerli": "yarn codegen-goerli && yarn build-goerli && yarn auth-studio && graph deploy --studio zkf-subgraph-goerli --network goerli",
+    "setup-remote-goerli": "yarn codegen-goerli && yarn build-goerli && yarn deploy-goerli",
+  
+    "auth": "graph auth --product hosted-service $GRAPH_AUTH_HOSTED_KEY",
+
+    "codegen": "graph codegen --network mainnet",
+    "build": "graph build --network mainnet",  
+    "auth-studio": "graph auth --studio $GRAPH_AUTH_STUDIO_KEY",
+    "deploy": "yarn auth && graph deploy --product hosted-service ensocean/ensocean-subgraph",
+    "setup-remote": "yarn codegen && yarn build && yarn deploy",
+    "setup-studio": "yarn codegen && yarn build && yarn auth-studio && graph deploy --studio ensocean"
+    
+  },
+  "dependencies": {
+    "@ensdomains/content-hash": "^2.5.3",
+    "@graphprotocol/graph-cli": "0.35.0",
+    "@graphprotocol/graph-ts": "^0.28.1",
+    "assemblyscript-regex": "^1.6.4"
+  },
+  "devDependencies": {
+    "matchstick-as": "^0.5.0"
+  }
+}
