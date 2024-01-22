@@ -1,29 +1,15 @@
 type Domain @entity {
   id: Bytes! 
-  label: String 
-  owner: Account
-  expires: BigInt
-  registrant: Account
-  registered: BigInt
-  created: BigInt
-  events: [DomainEvent!]! @derivedFrom(field: "domain")
-}
-  
-type DomainEvent @entity(immutable: true) {
-  id: Bytes!
-  blockNumber: Int
-  transactionID: Bytes
-  blockTimestamp: BigInt
-  domain: Domain!
   name: String
-  from: Account
-  to: Account
-  cost: BigInt
-  expires: BigInt 
-} 
+  labelName: String 
+  owner: Account
+  registrant: Account
+  expiryDate: BigInt
+  registeredAt: BigInt
+  createdAt: BigInt
+}
 
 type Account @entity {
-  id: Bytes! 
-  primaryName: String
+  id: Bytes!
   domains: [Domain!]! @derivedFrom(field: "owner")
 }

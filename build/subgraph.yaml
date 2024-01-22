@@ -18,7 +18,6 @@ dataSources:
       file: ZKFRegistrarController/ZKFRegistrarController.wasm
       entities:
         - Domain
-        - DomainEvent
       abis:
         - name: ZKFRegistrarController
           file: ZKFRegistrarController/abis/ZKFRegistrarController.json
@@ -41,7 +40,6 @@ dataSources:
       file: ZKFRegistrarController/ZKFRegistrarController.wasm
       entities:
         - Domain
-        - DomainEvent
       abis:
         - name: BaseRegistrarImplementation
           file: BaseRegistrarImplementation/abis/BaseRegistrarImplementation.json
@@ -66,7 +64,6 @@ dataSources:
       file: ZKFRegistrarController/ZKFRegistrarController.wasm
       entities:
         - Domain
-        - DomainEvent
       abis:
         - name: ENSRegistryWithFallback
           file: ENSRegistryWithFallback/abis/ENSRegistryWithFallback.json
@@ -75,25 +72,3 @@ dataSources:
           handler: handleTransferByRegistry
         - event: NewOwner(indexed bytes32,indexed bytes32,address)
           handler: handleNewOwnerByRegistry
-  - kind: ethereum
-    name: ReverseRegistrar
-    network: goerli
-    source:
-      abi: ReverseRegistrar
-      address: "0x441cA4f2948EEfABF32213A8d960dbeA6B084AbA"
-      startBlock: 10300000
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ZKFRegistrarController/ZKFRegistrarController.wasm
-      entities:
-        - Account
-      abis:
-        - name: ReverseRegistrar
-          file: ReverseRegistrar/abis/ReverseRegistrar.json
-      callHandlers:
-        - function: setName(string)
-          handler: handleSetName
-        - function: setNameForAddr(address,address,address,string)
-          handler: handleSetNameForAddr

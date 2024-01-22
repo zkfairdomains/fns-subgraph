@@ -86,3 +86,21 @@ export function decode_utf16_pair(units: number[]): number
     code += (units[1] & 0x03FF);
     return code;
 }
+
+export function checkValidLabel(name: string): boolean {
+  for (let i = 0; i < name.length; i++) {
+    let c = name.charCodeAt(i);
+    if (c === 0) {
+      log.warning("Invalid label '{}' contained null byte. Skipping.", [name]);
+      return false;
+    } else if (c === 46) {
+      log.warning(
+        "Invalid label '{}' contained separator char '.'. Skipping.",
+        [name]
+      );
+      return false;
+    }
+  }
+
+  return true;
+}

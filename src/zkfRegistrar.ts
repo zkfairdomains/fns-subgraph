@@ -29,25 +29,11 @@ import {
   SetNameForAddrCall
 } from "../generated/ReverseRegistrar/ReverseRegistrar"
   
-import { Domain, DomainEvent, Account } from "../generated/schema"
+import { Domain, Account } from "../generated/schema"
 
-import {  createEventID, uint256ToByteArray } from "./utils"
+import {  byteArrayFromHex, checkValidLabel, concat, createEventID, uint256ToByteArray } from "./utils"
  
- 
-export function handleSetName(call: SetNameCall): void {
-  const name = call.inputs.name 
-  let account = getAccount(call.from)
-  account.primaryName = name;
-  saveAccount(account);
-}
-
-export function handleSetNameForAddr(call: SetNameForAddrCall): void {
-  const addr = call.inputs.addr 
-  const name = call.inputs.name 
-  let account = getAccount(addr)
-  account.primaryName = name;
-  saveAccount(account);
-}
+const ZKF_NODE = "0x99399a6fdf00305eb312ceca5cb6971d481638860700d269d8e5056c8ccf8af5"
    
 export function handleNameRegisteredByController(event: NameRegisteredByController): void {
     
@@ -60,27 +46,21 @@ export function handleNameRegisteredByController(event: NameRegisteredByControll
   let transactionHash = event.transaction.hash
   let blockTimestamp = event.block.timestamp
  
+  if(!checkValidLabel(name)) {
+    return;
+  }
+
   let _owner = getAccount(owner);
   saveAccount(_owner)
 
-  let domain = getDomainByLabelHash(hash, blockTimestamp) 
-  domain.label = name   
+  let domain = getDomain(hash, blockTimestamp) 
+  domain.name = name + ".zkf";
+  domain.labelName = name   
   domain.owner = _owner.id
   domain.registrant = _owner.id
-  domain.registered = blockTimestamp
-  domain.expires = expires
-  saveDomain(domain, event) 
-
-  let domainEvent = new DomainEvent(createEventID(event))
-  domainEvent.domain = domain.id
-  domainEvent.blockNumber = blockNumber.toI32()
-  domainEvent.transactionID = transactionHash
-  domainEvent.blockTimestamp = blockTimestamp
-  domainEvent.name = "NameRegistered" 
-  domainEvent.from = _owner.id
-  domainEvent.cost = cost;
-  domainEvent.expires = expires
-  domainEvent.save()  
+  domain.registeredAt = blockTimestamp
+  domain.expiryDate = expires;
+  saveDomain(domain, event);
 }
 
 export function handleNameRenewedByController(event: NameRenewedByController): void {
@@ -93,26 +73,21 @@ export function handleNameRenewedByController(event: NameRenewedByController): v
   let transactionHash = event.transaction.hash
   let blockTimestamp = event.block.timestamp
    
-  let domain = getDomainByLabelHash(hash, blockTimestamp)
-  domain.label = name   
-  domain.expires = expires
-  saveDomain(domain, event)
+  if(!checkValidLabel(name)) {
+    return;
+  }
+  
+  let domain = getDomain(hash, blockTimestamp)
+  domain.name = name + ".zkf";
+  domain.labelName = name;
+  domain.expiryDate = expires,
+  saveDomain(domain, event);
 
   let _owner = getAccount(domain.owner!);
-  saveAccount(_owner)
-
-  let domainEvent = new DomainEvent(createEventID(event))
-  domainEvent.domain = domain.id
-  domainEvent.blockNumber = blockNumber.toI32()
-  domainEvent.transactionID = transactionHash
-  domainEvent.blockTimestamp = blockTimestamp
-  domainEvent.from = _owner.id
-  domainEvent.cost = cost;
-  domainEvent.name = "NameRenewed" 
-  domainEvent.expires = expires
-  domainEvent.save()  
+  saveAccount(_owner);
 }
-    
+
+ 
 export function handleNameRegisteredByRegistrar(event: NameRegisteredByRegistrar): void {
 
   let tokenId = event.params.id
@@ -124,22 +99,22 @@ export function handleNameRegisteredByRegistrar(event: NameRegisteredByRegistrar
  
   let label = uint256ToByteArray(tokenId) 
   let hash = Bytes.fromByteArray(label)
-  let domain = getDomainByLabelHash(hash, blockTimestamp)
+  let domain = getDomain(hash, blockTimestamp)
   
   let _owner = getAccount(owner);
   saveAccount(_owner)
 
-  let labelName = ens.nameByHash(label.toHexString());
+  let name = ens.nameByHash(label.toHexString());
 
-  if (labelName != null && domain.label === null) {
-    domain.label = labelName;
-  } 
-
-  domain.labelHash = hash; 
-  domain.owner = _owner.id
+  if (name != null && domain.labelName === null) {
+    domain.name = name + ".zkf";
+    domain.labelName = name;
+  }
+ 
+  domain.owner = _owner.id;
   domain.registrant = _owner.id
-  domain.registered = blockTimestamp
-  domain.expires = expires 
+  domain.registeredAt = blockTimestamp
+  domain.expiryDate = expires 
  
   saveDomain(domain, event)
 }
@@ -154,15 +129,16 @@ export function handleNameRenewedByRegistrar(event: NameRenewedByRegistrar): voi
    
   let label = uint256ToByteArray(tokenId) 
   let hash = Bytes.fromByteArray(label)
-  let domain = getDomainByLabelHash(hash, blockTimestamp)
+  let domain = getDomain(hash, blockTimestamp)
 
-  let labelName = ens.nameByHash(label.toHexString());
+  let name = ens.nameByHash(label.toHexString());
 
-  if (labelName != null && domain.label === null) {
-    domain.label = labelName;
+  if (name != null && domain.labelName === null) {
+    domain.name = name + ".zkf";
+    domain.labelName = name;
   } 
 
-  domain.expires = expires 
+  domain.expiryDate = expires 
   saveDomain(domain, event)  
 }
 
@@ -177,7 +153,7 @@ export function handleNameTransferredByRegistrar(event: NameTransferredByRegistr
 
   let label = uint256ToByteArray(tokenId) 
   let hash = Bytes.fromByteArray(label)
-  let domain = getDomainByLabelHash(hash, blockTimestamp) 
+  let domain = getDomain(hash, blockTimestamp) 
 
   let _owner = getAccount(to)
   saveAccount(_owner)
@@ -196,42 +172,30 @@ export function handleTransferByRegistry(event: NameTransferredByRegistry): void
   let _owner = getAccount(owner)
   saveAccount(_owner)
 
-  let domain = getDomainByLabelHash(node, blockTimestamp)
+  let domain = getDomain(node, blockTimestamp)
   domain.owner = _owner.id
   saveDomain(domain, event)
 } 
 
 export function handleNewOwnerByRegistry(event: NameNewOwnerByRegistry): void { 
-  _handleNewOwner(event)
-} 
-
-export function handleTransferByRegistryOld(event: NameTransferredByRegistry): void { 
-  handleTransferByRegistry(event)
-} 
-
-export function handleNewOwnerByRegistryOld(event: NameNewOwnerByRegistry): void { 
-  _handleNewOwner(event)
-} 
-
-function _handleNewOwner(event: NameNewOwnerByRegistry): void {
   let node = event.params.node
   let owner = event.params.owner
   let hash = event.params.label 
   let blockNumber = event.block.number
   let transactionHash = event.transaction.hash
   let blockTimestamp = event.block.timestamp
-   
-  let domain = getDomainByLabelHash(hash, blockTimestamp)
+  
+  let labelName = ens.nameByHash(hash.toHexString());
+
+  let domain = getDomain(hash, blockTimestamp)
  
   let _owner = getAccount(owner)
   saveAccount(_owner)
  
   domain.owner = _owner.id
-
-  let labelName = ens.nameByHash(hash.toHexString());
-  
-  if (labelName != null && domain.label === null) {
-    domain.label = labelName;
+ 
+  if (labelName != null) {
+    domain.labelName = labelName;
   } 
 
   saveDomain(domain, event)
@@ -261,17 +225,21 @@ function saveDomain(domain: Domain, event: ethereum.Event): void {
   }
 }
    
-function getDomainByLabelHash(label: Bytes, timestamp: BigInt): Domain {
-  let domain = Domain.load(label)
+function getDomain(label: Bytes, timestamp: BigInt): Domain {
+  let domain = Domain.load(getID(label))
   if(domain === null) {
-    return createDomainByLabelHash(label, timestamp)
+    return createDomain(label, timestamp)
   }else{
     return domain
   }
 }
 
-function createDomainByLabelHash(label: Bytes, timestamp: BigInt): Domain {
-  let domain = new Domain(label)  
-  domain.created = timestamp 
+function createDomain(label: Bytes, timestamp: BigInt): Domain {
+  let domain = new Domain(getID(label))  
+  domain.createdAt = timestamp 
   return domain
+}
+
+function getID(label: Bytes): Bytes {
+  return label;
 }
