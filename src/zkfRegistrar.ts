@@ -24,14 +24,10 @@ import {
   Transfer as NameTransferredByRegistry
 } from "../generated/ENSRegistryWithFallback/ENSRegistryWithFallback"
 
-import {  
-  SetNameCall,
-  SetNameForAddrCall
-} from "../generated/ReverseRegistrar/ReverseRegistrar"
-  
+ 
 import { Domain, Account } from "../generated/schema"
 
-import {  byteArrayFromHex, checkValidLabel, concat, createEventID, uint256ToByteArray } from "./utils"
+import { checkValidLabel, uint256ToByteArray } from "./utils"
  
 const ZKF_NODE = "0x99399a6fdf00305eb312ceca5cb6971d481638860700d269d8e5056c8ccf8af5"
    
