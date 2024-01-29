@@ -1,27 +1,27 @@
 {
   "goerli": {
     "ZKFRegistrarController": {
-      "address": "0x67b9fb2dF83A33f8E1a8a99102242aD0A110835a",
+      "address": "0xE10D4F0C18FD8Aa4bcb0eAf209dd1328EFcfBF4C",
       "startBlock": 10300000
     }, 
     "BaseRegistrarImplementation": {
-      "address": "0x84527CE5B770EB2ebD50f16522A2c563a5235008",
+      "address": "0xdFCfAe7592FF1f371AFb2037Fed720da7702092d",
       "startBlock": 10300000
     },
     "ENSRegistryWithFallback": {
-      "address": "0xD2804a7dD0747E6D8BEbb44b2840591eE0C21E9c",
+      "address": "0x50d4EE2677cc864007Dc04c2C65bbF16b4BEC6a3",
       "startBlock": 10300000
     },
     "ENSRegistryWithFallbackOld": {
-      "address": "0xc6390F725F974EbFd6f6B48fbe28DC01867feA76",
+      "address": "0xCEbDF2ba52C8d3f74b64BA0e7DF6ECdc9A3cF362",
       "startBlock": 10300000
     },
     "ReverseRegistrar": {
-      "address": "0xA376aA4ea3eE03851257Fa929E35578ccb08703c",
+      "address": "0x9eE181972D88DCd4A51f6201F26e8f8754660D11",
       "startBlock": 10300000
     },
     "PublicResolver": {
-      "address": "0xd366866881b9791cd915D8A5d77F037Fad33783f",
+      "address": "0x4352EefB0C112724Faca9e2d35a8764d52631C61",
       "startBlock": 10300000
     }
   },
