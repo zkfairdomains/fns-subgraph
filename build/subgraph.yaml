@@ -9,7 +9,7 @@ dataSources:
     network: goerli
     source:
       abi: ZKFRegistrarController
-      address: "0xC805e17Dc9D3845374ed5E126180138CA250a581"
+      address: "0x67b9fb2dF83A33f8E1a8a99102242aD0A110835a"
       startBlock: 10300000
     mapping:
       kind: ethereum/events
@@ -31,7 +31,7 @@ dataSources:
     network: goerli
     source:
       abi: BaseRegistrarImplementation
-      address: "0x30f96074fE89400B602Cf4927D412E96ae684848"
+      address: "0x84527CE5B770EB2ebD50f16522A2c563a5235008"
       startBlock: 10300000
     mapping:
       kind: ethereum/events
@@ -55,7 +55,7 @@ dataSources:
     network: goerli
     source:
       abi: ENSRegistryWithFallback
-      address: "0x9b34EB010a86c513cF3486254dD6473a6DaE1193"
+      address: "0xD2804a7dD0747E6D8BEbb44b2840591eE0C21E9c"
       startBlock: 10300000
     mapping:
       kind: ethereum/events
