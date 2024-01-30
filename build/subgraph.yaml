@@ -9,7 +9,7 @@ dataSources:
     network: mainnet
     source:
       abi: ZKFRegistrarController
-      address: "0x91d4687906a6a87Caf1c656ad108ab5CCd05f5A4"
+      address: "0x910350d457933452a3C638317d62e2EFae6e6827"
       startBlock: 6539500
     mapping:
       kind: ethereum/events
@@ -31,7 +31,7 @@ dataSources:
     network: mainnet
     source:
       abi: BaseRegistrarImplementation
-      address: "0x3e01dce68dFfE5Ec98737718B5411Eae2256a65f"
+      address: "0xd6367111d1d47629C461dAA0318D0a27b188D91e"
       startBlock: 6539500
     mapping:
       kind: ethereum/events
@@ -55,7 +55,7 @@ dataSources:
     network: mainnet
     source:
       abi: ENSRegistryWithFallback
-      address: "0xbc89A4aDA4eC588EcEa51B3aF571c8E791Bf82a0"
+      address: "0x2a4Da4831cF5d60b922135192A3CbbeBF3570Ae0"
       startBlock: 6539500
     mapping:
       kind: ethereum/events
