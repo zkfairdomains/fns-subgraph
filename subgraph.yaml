@@ -6,11 +6,11 @@ features:
 dataSources:
   - kind: ethereum
     name: ZKFRegistrarController
-    network: goerli
+    network: mainnet
     source:
       abi: ZKFRegistrarController
-      address: "0xE10D4F0C18FD8Aa4bcb0eAf209dd1328EFcfBF4C"
-      startBlock: 10300000
+      address: "0x91d4687906a6a87Caf1c656ad108ab5CCd05f5A4"
+      startBlock: 6539500
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -29,11 +29,11 @@ dataSources:
           handler: handleNameRenewedByController
   - kind: ethereum
     name: BaseRegistrarImplementation
-    network: goerli
+    network: mainnet
     source:
       abi: BaseRegistrarImplementation
-      address: "0xdFCfAe7592FF1f371AFb2037Fed720da7702092d"
-      startBlock: 10300000
+      address: "0x3e01dce68dFfE5Ec98737718B5411Eae2256a65f"
+      startBlock: 6539500
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -53,11 +53,11 @@ dataSources:
           handler: handleNameTransferredByRegistrar
   - kind: ethereum
     name: ENSRegistryWithFallback
-    network: goerli
+    network: mainnet
     source:
       abi: ENSRegistryWithFallback
-      address: "0x50d4EE2677cc864007Dc04c2C65bbF16b4BEC6a3"
-      startBlock: 10300000
+      address: "0xbc89A4aDA4eC588EcEa51B3aF571c8E791Bf82a0"
+      startBlock: 6539500
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

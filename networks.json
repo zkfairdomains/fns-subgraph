@@ -26,7 +26,30 @@
     }
   },
   "mainnet": {
-     
+    "ZKFRegistrarController": {
+      "address": "0x91d4687906a6a87Caf1c656ad108ab5CCd05f5A4",
+      "startBlock": 6539500
+    }, 
+    "BaseRegistrarImplementation": {
+      "address": "0x3e01dce68dFfE5Ec98737718B5411Eae2256a65f",
+      "startBlock": 6539500
+    },
+    "ENSRegistryWithFallback": {
+      "address": "0xbc89A4aDA4eC588EcEa51B3aF571c8E791Bf82a0",
+      "startBlock": 6539500
+    },
+    "ENSRegistryWithFallbackOld": {
+      "address": "0xd9Fd48Bd6000017195F0226D04Ca4efC51bee2D0",
+      "startBlock": 6539500
+    },
+    "ReverseRegistrar": {
+      "address": "0x7142171F2A06E6CB773E519be44d36a235a28447",
+      "startBlock": 6539500
+    },
+    "PublicResolver": {
+      "address": "0x46418e26b3f77F46EF3B4c06F01233f271787852",
+      "startBlock": 6539500
+    }
   }
 }
 
