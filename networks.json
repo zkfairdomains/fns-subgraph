@@ -1,53 +1,53 @@
 {
-  "goerli": {
-    "ZKFRegistrarController": {
-      "address": "0x45583560530EE02A69145fA3c232c34983a82Ad5",
-      "startBlock": 10300000
-    }, 
-    "BaseRegistrarImplementation": {
-      "address": "0xf4feb892458cB380B556a68172aB3A1CAB241841",
-      "startBlock": 10300000
-    },
+  "sepolia": {
     "ENSRegistryWithFallback": {
-      "address": "0x5eF56930871EE5acca96c813D05210080a3B24d0",
-      "startBlock": 10300000
+      "address": "0xF7693D95cE1ff8746B100999E7dC841c91a4cfa1",
+      "startBlock": 7609890
     },
     "ENSRegistryWithFallbackOld": {
-      "address": "0x1686A8fe88C8f1930Ce5202c4cEDd484fFEc5e77",
-      "startBlock": 10300000
+      "address": "0x37ACd9EDD6045C5e5dFEf9012BdDE3dFF6F967f5",
+      "startBlock": 7609890
     },
     "ReverseRegistrar": {
-      "address": "0x2cf3e0D3e2AAbea61A685BCDA17B823e4207c8d1",
-      "startBlock": 10300000
+      "address": "0xFC606488ae8cbEF7f1DC2304F7c69106572E8381",
+      "startBlock": 7609890
     },
+    "BaseRegistrarImplementation": {
+      "address": "0x7574D8d0eaD67f9687C8E9af041E1846d05A76D2",
+      "startBlock": 7609890
+    },
+    "ZKFRegistrarController": {
+      "address": "0x40B13E6B8AE6913Aa8B0F2e85D5F922F495b6780",
+      "startBlock": 7609890
+    },  
     "PublicResolver": {
-      "address": "0x8629A02B70f3f685F69306B6Dc760550B421540b",
-      "startBlock": 10300000
+      "address": "0xF94323231997e335D413384076487b5948113151",
+      "startBlock": 7609890
     }
   },
   "mainnet": {
     "ZKFRegistrarController": {
-      "address": "0x910350d457933452a3C638317d62e2EFae6e6827",
+      "address": "",
       "startBlock": 6539500
     }, 
     "BaseRegistrarImplementation": {
-      "address": "0xd6367111d1d47629C461dAA0318D0a27b188D91e",
+      "address": "",
       "startBlock": 6539500
     },
     "ENSRegistryWithFallback": {
-      "address": "0x2a4Da4831cF5d60b922135192A3CbbeBF3570Ae0",
+      "address": "",
       "startBlock": 6539500
     },
     "ENSRegistryWithFallbackOld": {
-      "address": "0xe405542B78Cff1CE9b92E71C7a7690E0cdb4e2D4",
+      "address": "",
       "startBlock": 6539500
     },
     "ReverseRegistrar": {
-      "address": "0x001d5B2851F3AE70ca9CD690C2A6defaEF9deB4D",
+      "address": "",
       "startBlock": 6539500
     },
     "PublicResolver": {
-      "address": "0xF5076E8FA071bC09588A7623eA38bB58EB80AFE4",
+      "address": "",
       "startBlock": 6539500
     }
   }

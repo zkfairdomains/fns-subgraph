@@ -3,30 +3,12 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    
-    "auth": "graph auth --product hosted-service $GRAPH_AUTH_HOSTED_KEY",
-
-    "build-goerli": "graph build --network goerli",
-    "codegen-goerli": "graph codegen --network goerli",
-
-    "test": "graph test --network goerli",
-    "deploy-goerli": "yarn auth && graph deploy --product hosted-service zkfairdomains/zkf-subgraph-goerli --network goerli",
-
-
-    "create:local": "graph create zkfairdomains/zkf-subgraph-goerli --node http://graph.local.com --network goerli",
-    "deploy:local": "graph deploy zkfairdomains/zkf-subgraph-goerli --ipfs http://ipfs.local.com --node http://graph.local.com --network goerli",
-    "remove:local": "graph remove zkfairdomains/zkf-subgraph-goerli --node http://graph.local.com --network goerli",
-
-    "create:remote": "graph create zkfairdomains/zkf-subgraph --node https://graph.zkfair.domains --network mainnet",
-    "deploy:remote": "graph deploy zkfairdomains/zkf-subgraph --ipfs https://ipfs.zkfair.domains --node https://graph.zkfair.domains --network mainnet",
-    "remove:remote": "graph remove zkfairdomains/zkf-subgraph --node https://graph.zkfair.domains --network mainnet"
-     
-     
+    "test": "graph test --network sepolia"
   },
   "dependencies": {
     "@ensdomains/content-hash": "^2.5.3",
-    "@graphprotocol/graph-cli": "0.35.0",
-    "@graphprotocol/graph-ts": "^0.28.1",
+    "@graphprotocol/graph-cli": "0.95.0",
+    "@graphprotocol/graph-ts": "0.37.0",
     "assemblyscript-regex": "^1.6.4"
   },
   "devDependencies": {
