@@ -6,11 +6,11 @@ features:
 dataSources:
   - kind: ethereum
     name: ZKFRegistrarController
-    network: mainnet
+    network: sepolia
     source:
       abi: ZKFRegistrarController
-      address: "0x910350d457933452a3C638317d62e2EFae6e6827"
-      startBlock: 6539500
+      address: "0x40B13E6B8AE6913Aa8B0F2e85D5F922F495b6780"
+      startBlock: 7609890
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -28,11 +28,11 @@ dataSources:
           handler: handleNameRenewedByController
   - kind: ethereum
     name: BaseRegistrarImplementation
-    network: mainnet
+    network: sepolia
     source:
       abi: BaseRegistrarImplementation
-      address: "0xd6367111d1d47629C461dAA0318D0a27b188D91e"
-      startBlock: 6539500
+      address: "0x7574D8d0eaD67f9687C8E9af041E1846d05A76D2"
+      startBlock: 7609890
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -52,11 +52,11 @@ dataSources:
           handler: handleNameTransferredByRegistrar
   - kind: ethereum
     name: ENSRegistryWithFallback
-    network: mainnet
+    network: sepolia
     source:
       abi: ENSRegistryWithFallback
-      address: "0x2a4Da4831cF5d60b922135192A3CbbeBF3570Ae0"
-      startBlock: 6539500
+      address: "0xF7693D95cE1ff8746B100999E7dC841c91a4cfa1"
+      startBlock: 7609890
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
